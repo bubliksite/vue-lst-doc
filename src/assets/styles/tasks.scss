@@ -1,0 +1,33 @@
+.danger-task {
+  font-weight: bold;
+  color: $red;
+  line-height: 110%;
+}
+.tender-task {
+  color: $yellow;
+  line-height: 110%;
+}
+.sand-clock-task {
+  line-height: 110%;
+}
+.contract-task {
+  color: $yellow;
+  line-height: 110%;
+}
+.acceptance-task {
+  line-height: 110%;
+}
+.additional-task {
+  color: $blue;
+  line-height: 110%;
+}
+.delete-task {
+  color: $gray;
+  text-decoration: line-through;
+  line-height: 110%;
+}
+.done-task {
+  color: $green;
+  text-decoration: line-through;
+  line-height: 110%;
+}

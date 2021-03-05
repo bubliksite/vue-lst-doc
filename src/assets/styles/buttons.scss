@@ -1,0 +1,13 @@
+.btn {
+  &-primary {
+    background-color: $primary !important;
+    border-color: $primary !important;
+    box-shadow: none !important;
+    &:focus {
+      @extend .btn-primary;
+    }
+    &:active {
+      @extend .btn-primary;
+    }
+  }
+}

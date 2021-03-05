@@ -1,0 +1,109 @@
+body {
+  color: white;
+  background-color: $dark-blue;
+  min-height: 100vh;
+  font-family: 'Open Sans', sans-serif;
+}
+
+header {
+  li {
+    font-size: 13px;
+    &:hover {
+      background-color: $border-color;
+    }
+  }
+}
+
+h1,
+h2,
+h3 {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: $gray-header-text;
+}
+
+h1 {
+  font-size: 18px;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+h3 {
+  font-size: 14px;
+}
+
+#profileMenu::before {
+  content: '';
+  position: absolute;
+  height: 12px;
+  width: 12px;
+  background: #13274e;
+  top: -6px;
+  right: 18px;
+  transform: rotate(45deg);
+  box-shadow: -2px -2px 0.25rem rgba(8, 18, 34, 0.1);
+}
+
+.card {
+  background-color: $medium-dark;
+  border-radius: 4px;
+  &.invalid {
+    background-color: $red-bg;
+  }
+}
+
+.border-left {
+  border-left: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+.border-right {
+  border-right: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+.border-top {
+  border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+.border-bottom {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.border {
+  @extend .border-left;
+  @extend .border-right;
+  @extend .border-top;
+  @extend .border-bottom;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  @media (max-width: 992px) {
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  a {
+    color: $gray-text;
+    @media (max-width: 992px) {
+      font-size: 13px;
+    }
+    &.active {
+      color: $primary;
+    }
+  }
+}
+
+.progress {
+  height: 5px;
+  border-radius: 4px;
+  background-color: $border-color;
+}
+
+.table {
+  thead th {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+  }
+  td,
+  th {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}

@@ -1,0 +1,35 @@
+$dark-blue: #0f1f3e;
+$medium-dark: #13274e;
+$gray-font: #a2a2af;
+$border-color: #172f5f;
+$red: #f24734;
+$red-bg: rgba(242, 71, 52, 0.2);
+$green: #46cd93;
+$green-bg: rgba(70, 205, 147, 0.2);
+$yellow: #fdba45;
+$blue: #4bbbce;
+$gray: rgba(255, 255, 255, 0.2);
+$primary: #5985ee;
+$gray-text: rgba(255, 255, 255, 0.6);
+$gray-header-text: #dddddd;
+
+.bg- {
+  &primary {
+    background-color: $primary !important;
+  }
+  &medium {
+    background-color: $medium-dark !important;
+  }
+  &blue {
+    background-color: $blue !important;
+  }
+  &danger {
+    background-color: $red !important;
+  }
+  &warning {
+    background-color: $yellow !important;
+  }
+  &success {
+    background-color: $green !important;
+  }
+}

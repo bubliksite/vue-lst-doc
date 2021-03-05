@@ -1,0 +1,24 @@
+.form-control {
+  background-color: transparent;
+  border-color: $border-color;
+  color: white;
+  box-shadow: none;
+  &:focus {
+    @extend .form-control;
+  }
+  &.invalid {
+    @extend .invalid;
+    border-color: $red;
+  }
+  &.valid {
+    @extend .valid;
+    border-color: $green;
+  }
+}
+.invalid {
+  color: $red !important;
+}
+
+.valid {
+  color: $green !important;
+}

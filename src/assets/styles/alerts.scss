@@ -1,0 +1,17 @@
+.alert {
+  min-height: 50px;
+  width: 100%;
+  padding: 9px 11px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  &.valid {
+    color: $green;
+    background-color: $green-bg;
+  }
+  &.invalid {
+    color: $red;
+    background-color: $red-bg;
+  }
+}
