@@ -11,15 +11,19 @@ const requestPassword = credentials => {
 }
 
 const updatePassword = credentials => {
-  return axios.post('https://api.bblk.ga/lst/user/update-password/:token', {
+  return axios.post(`https://api.bblk.ga/lst/user/update-password`, {
     user: credentials
   })
 }
 
 const getUpdatedEmail = token => {
   return axios
-    .post(`https://api.bblk.ga/lst/user/get-updated-email/${token}`)
+    .post(`https://api.bblk.ga/lst/user/get-updated-email`, {token})
     .then(response => response.data)
+}
+
+const isLoggedIn = token => {
+  return axios.post('https://api.bblk.ga/lst/user', {token})
 }
 
 const sendNewPassword = credentials => {
@@ -28,10 +32,16 @@ const sendNewPassword = credentials => {
   })
 }
 
+const logout = token => {
+  return axios.post('https://api.bblk.ga/lst/logout', {token})
+}
+
 export default {
   login,
+  logout,
   requestPassword,
   sendNewPassword,
   getUpdatedEmail,
-  updatePassword
+  updatePassword,
+  isLoggedIn
 }

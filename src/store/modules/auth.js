@@ -4,8 +4,7 @@ const state = {
   isSubmitting: false,
   currentUser: null,
   validationErrors: null,
-  isLoggedIn: null,
-  messages: null
+  isLoggedIn: null
 }
 
 export const mutationTypes = {
@@ -21,17 +20,28 @@ export const mutationTypes = {
   updatePasswordSuccess: '[auth] Success Update Password',
   updatePasswordFailure: '[auth] Failure Update Password',
 
-  getUpdatedEmailStart: '[auth] Start Update Password',
-  getUpdatedEmailSuccess: '[auth] Success Update Password',
-  getUpdatedEmailFailure: '[auth] Failure Update Password'
+  getUpdatedEmailStart: '[auth] Start Get Email',
+  getUpdatedEmailSuccess: '[auth] Success Get Email',
+  getUpdatedEmailFailure: '[auth] Failure Get Email',
+
+  isLoggedInStart: '[auth] Start Is Logged In',
+  isLoggedInSuccess: '[auth] Success Is Logged In',
+  isLoggedInFailure: '[auth] Failure Is Logged In',
+
+  clearValidationError: '[auth] Clear Validation Errors',
+
+  logout: '[auth] Logout'
 }
 
 export const actionTypes = {
   login: '[auth] login',
+  logout: '[auth] logout',
   sendNewPassword: '[auth] send new password',
   requestPassword: '[auth] request password',
   getUpdatedEmail: '[auth] get updated email',
-  updatePassword: '[auth] update password'
+  updatePassword: '[auth] update password',
+  isLoggedIn: '[auth] is logged in',
+  clearValidationError: '[auth] clear validation errors'
 }
 
 const mutations = {
@@ -63,13 +73,16 @@ const mutations = {
   },
 
   [mutationTypes.getUpdatedEmailStart](state) {
-    state.messages = null
+    state.validationErrors = null
+    state.isSubmitting = true
   },
   [mutationTypes.getUpdatedEmailSuccess](state, payload) {
-    state.messages = payload
+    state.currentUser = payload
+    state.isSubmitting = false
   },
   [mutationTypes.getUpdatedEmailFailure](state, payload) {
-    state.messages = payload
+    state.validationErrors = payload
+    state.isSubmitting = false
   },
 
   [mutationTypes.updatePasswordStart](state) {
@@ -83,6 +96,29 @@ const mutations = {
   [mutationTypes.updatePasswordFailure](state, payload) {
     state.isSubmitting = false
     state.validationErrors = payload
+  },
+
+  [mutationTypes.isLoggedInStart](state) {
+    state.isSubmitting = true
+    state.validationErrors = null
+    state.currentUser = null
+  },
+  [mutationTypes.isLoggedInSuccess](state, payload) {
+    state.isSubmitting = false
+    state.currentUser = payload
+  },
+  [mutationTypes.isLoggedInFailure](state, payload) {
+    state.isSubmitting = false
+    state.validationErrors = payload
+  },
+
+  [mutationTypes.clearValidationError](state) {
+    state.validationErrors = null
+  },
+
+  [mutationTypes.logout](state) {
+    state.currentUser = null
+    state.isLoggedIn = false
   }
 }
 
@@ -158,6 +194,29 @@ const actions = {
             result.response.data
           )
         })
+    })
+  },
+
+  [actionTypes.isLoggedIn](context, {token}) {
+    return new Promise(resolve => {
+      context.commit(mutationTypes.isLoggedInStart)
+      authApi
+        .isLoggedIn(token)
+        .then(response => {
+          context.commit(mutationTypes.isLoggedInSuccess, response.data)
+          resolve(response.data)
+        })
+        .catch(result => {
+          context.commit(mutationTypes.isLoggedInFailure, result.response.data)
+        })
+    })
+  },
+  [actionTypes.clearValidationError](context) {
+    context.commit(mutationTypes.clearValidationError)
+  },
+  [actionTypes.logout](context, {token}) {
+    authApi.logout(token).then(() => {
+      context.commit(mutationTypes.logout)
     })
   }
 }

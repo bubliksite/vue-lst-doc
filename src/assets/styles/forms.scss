@@ -14,6 +14,10 @@
     @extend .valid;
     border-color: $green;
   }
+  &:disabled {
+    @extend .form-control;
+    color: $gray-font;
+  }
 }
 .invalid {
   color: $red !important;

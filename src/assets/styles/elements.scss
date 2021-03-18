@@ -52,6 +52,9 @@ h3 {
   &.invalid {
     background-color: $red-bg;
   }
+  &.valid {
+    background-color: $green-bg;
+  }
 }
 
 .border-left {

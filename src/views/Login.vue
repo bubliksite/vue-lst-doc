@@ -87,6 +87,7 @@
       })
     },
     mounted() {
+      this.$store.dispatch(actionTypes.clearValidationError)
       this.loader = false
     },
     methods: {
