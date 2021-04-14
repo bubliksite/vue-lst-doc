@@ -1,8 +1,9 @@
 .form-control {
-  background-color: transparent;
+  background-color: #0f1f3e;
   border-color: $border-color;
   color: white;
   box-shadow: none;
+  font-size: 14px;
   &:focus {
     @extend .form-control;
   }
@@ -19,6 +20,21 @@
     color: $gray-font;
   }
 }
+
+.form-group {
+  position: relative;
+  .icon-clear-input {
+    cursor: pointer;
+    img {
+      width: 20px;
+      background-color: #0f1f3e;
+    }
+    position: absolute;
+    right: 10px;
+    bottom: calc(50% - 10px);
+  }
+}
+
 .invalid {
   color: $red !important;
 }

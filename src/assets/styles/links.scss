@@ -3,5 +3,9 @@ a {
   &:hover {
     color: white;
     text-decoration: none;
+    svg {
+      fill: #fff;
+      fill-opacity: 1;
+    }
   }
 }

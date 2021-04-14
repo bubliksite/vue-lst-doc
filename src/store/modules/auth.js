@@ -8,6 +8,10 @@ const state = {
 }
 
 export const mutationTypes = {
+  registrationStart: '[auth] Start Registration',
+  registrationSuccess: '[auth] Success Registration',
+  registrationFailure: '[auth] Failure Registration',
+
   loginStart: '[auth] Start Login',
   loginSuccess: '[auth] Success Login',
   loginFailure: '[auth] Failure Login',
@@ -34,6 +38,7 @@ export const mutationTypes = {
 }
 
 export const actionTypes = {
+  registration: '[auth] registration',
   login: '[auth] login',
   logout: '[auth] logout',
   sendNewPassword: '[auth] send new password',
@@ -45,6 +50,19 @@ export const actionTypes = {
 }
 
 const mutations = {
+  [mutationTypes.registrationStart](state) {
+    state.isSubmitting = true
+    state.validationErrors = null
+  },
+  [mutationTypes.registrationSuccess](state, payload) {
+    state.isSubmitting = false
+    state.validationErrors = payload
+  },
+  [mutationTypes.registrationFailure](state, payload) {
+    state.isSubmitting = false
+    state.validationErrors = payload
+  },
+
   [mutationTypes.loginStart](state) {
     state.isSubmitting = true
     state.validationErrors = null
@@ -106,6 +124,7 @@ const mutations = {
   [mutationTypes.isLoggedInSuccess](state, payload) {
     state.isSubmitting = false
     state.currentUser = payload
+    state.isLoggedIn = true
   },
   [mutationTypes.isLoggedInFailure](state, payload) {
     state.isSubmitting = false
@@ -123,6 +142,24 @@ const mutations = {
 }
 
 const actions = {
+  [actionTypes.registration](context, credentials) {
+    return new Promise(resolve => {
+      context.commit(mutationTypes.registrationStart)
+      authApi
+        .registration(credentials)
+        .then(response => {
+          context.commit(mutationTypes.registrationSuccess, response.data)
+          resolve(response.data)
+        })
+        .catch(result => {
+          context.commit(
+            mutationTypes.registrationFailure,
+            result.response.data
+          )
+        })
+    })
+  },
+
   [actionTypes.login](context, credentials) {
     return new Promise(resolve => {
       context.commit(mutationTypes.loginStart)
@@ -208,6 +245,7 @@ const actions = {
         })
         .catch(result => {
           context.commit(mutationTypes.isLoggedInFailure, result.response.data)
+          localStorage.removeItem('lstToken')
         })
     })
   },
