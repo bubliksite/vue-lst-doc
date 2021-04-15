@@ -1,5 +1,8 @@
 .btn {
   height: fit-content;
+  &:disabled {
+    cursor: not-allowed;
+  }
   &-primary {
     background-color: $primary !important;
     border-color: $primary !important;
@@ -9,6 +12,28 @@
     }
     &:active {
       @extend .btn-primary;
+    }
+  }
+  &-success {
+    background-color: $green !important;
+    border-color: $green !important;
+    box-shadow: none !important;
+    &:focus {
+      @extend .btn-success;
+    }
+    &:active {
+      @extend .btn-success;
+    }
+  }
+  &-danger {
+    background-color: $red !important;
+    border-color: $red !important;
+    box-shadow: none !important;
+    &:focus {
+      @extend .btn-danger;
+    }
+    &:active {
+      @extend .btn-danger;
     }
   }
 }

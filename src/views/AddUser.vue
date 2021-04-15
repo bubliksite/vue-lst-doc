@@ -12,7 +12,7 @@
         <div class="col-12">
           <div class="card px-3 py-4">
             <div class="row">
-              <div class="col-md-8 col-12">
+              <div class="col-md-8 col-12 order-2 order-md-1">
                 <form @submit.prevent="" class="row px-3">
                   <div class="col-12 col-md-6">
                     <div
@@ -22,6 +22,7 @@
                         >Имя</label
                       >
                       <input
+                        :class="errorsFields.fullName"
                         class="form-control"
                         type="text"
                         id="fullName"
@@ -40,6 +41,7 @@
                         >Email</label
                       >
                       <input
+                        :class="errorsFields.email"
                         class="form-control"
                         type="email"
                         id="email"
@@ -58,6 +60,7 @@
                         >Пароль</label
                       >
                       <input
+                        :class="errorsFields.password"
                         class="form-control"
                         type="password"
                         id="password"
@@ -78,11 +81,13 @@
                         Права
                       </label>
                       <select
+                        :class="errorsFields.role"
                         class="form-control"
                         id="role"
                         name="role"
                         v-model="role"
                       >
+                        <option value="" selected disabled>Выберите...</option>
                         <option
                           v-for="role in roles"
                           :value="role.id"
@@ -99,11 +104,13 @@
                         Объект
                       </label>
                       <select
+                        :class="errorsFields.object"
                         class="form-control"
                         id="object"
                         name="object"
                         v-model="object"
                       >
+                        <option value="" selected disabled>Выберите...</option>
                         <option
                           v-for="object in objects"
                           :value="object.id"
@@ -113,6 +120,27 @@
                         </option>
                       </select>
                     </div>
+                    <div
+                      class="form-group d-flex align-items-center font-weight-bold mb-5"
+                    >
+                      <label class="mb-0 mr-3 text-uppercase" for="position"
+                        >Должность</label
+                      >
+                      <input
+                        :class="errorsFields.position"
+                        class="form-control"
+                        type="text"
+                        id="position"
+                        name="position"
+                        v-model="position"
+                        placeholder="Должность"
+                      />
+                      <div class="icon-clear-input" @click="position = ''">
+                        <img src="@/assets/img/icon-clear-input.svg" alt="" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
                     <div
                       class="form-group d-flex align-items-center justify-content-between font-weight-bold mb-5"
                     >
@@ -125,7 +153,7 @@
                           src="@/assets/img/icon-done.svg"
                           alt=""
                         />
-                        Принять
+                        Создать
                         <img
                           v-if="isSubmitting"
                           class="mr-2 small-loader position-absolute"
@@ -142,13 +170,18 @@
                           src="@/assets/img/icon-cancell.svg"
                           alt=""
                         />
-                        Отменить
+                        Назад
                       </button>
                     </div>
                   </div>
                 </form>
               </div>
-              <div class="col-12 col-md-4">
+              <div class="col-12 col-md-4 order-1 order-md-2">
+                <Alert
+                  v-for="(error, index) in errors"
+                  :key="index"
+                  :validationErrors="error"
+                />
                 <Alert
                   v-if="validationErrors"
                   :validationErrors="validationErrors"
@@ -180,7 +213,10 @@
       email: '',
       password: '',
       role: '',
-      object: ''
+      object: '',
+      position: '',
+      errors: [],
+      errorsFields: {}
     }),
     computed: {
       ...mapState({
@@ -201,6 +237,7 @@
       }
     },
     mounted() {
+      this.$store.dispatch(authActionTypes.clearValidationError)
       this.$store.dispatch(rolesActionTypes.getRoles)
       this.$store.dispatch(objectsActionTypes.getObjects)
       this.loader = false
@@ -212,17 +249,102 @@
         this.password = ''
         this.role = ''
         this.object = ''
+        this.position = ''
         this.$router.push({name: 'Settings'})
       },
+      validationForm() {
+        this.errorsFields = {}
+        this.errors = []
+        this.validationFullName()
+        this.validationEmail()
+        this.validationPassword()
+        this.validationPosition()
+        this.validationRole()
+        this.validationObject()
+      },
+      validationFullName() {
+        if (this.fullName === '' || this.fullName.indexOf(' ') === -1) {
+          this.errors.push({
+            type: 'invalid',
+            message: 'Введите имя и фамилию через пробел'
+          })
+          this.errorsFields.fullName = 'invalid'
+        } else {
+          this.errorsFields.fullName = 'valid'
+        }
+      },
+      validationEmail() {
+        if (
+          this.email === '' ||
+          this.email.indexOf('@') === -1 ||
+          this.email.indexOf('.') === -1
+        ) {
+          this.errors.push({
+            type: 'invalid',
+            message: 'Введите корректный email'
+          })
+          this.errorsFields.email = 'invalid'
+        } else {
+          this.errorsFields.email = 'valid'
+        }
+      },
+      validationPassword() {
+        if (this.password === '' || this.password.length < 6) {
+          this.errors.push({
+            type: 'invalid',
+            message: 'Введите пароль не менее 6 символов'
+          })
+          this.errorsFields.password = 'invalid'
+        } else {
+          this.errorsFields.password = 'valid'
+        }
+      },
+      validationRole() {
+        if (this.role === '') {
+          this.errors.push({
+            type: 'invalid',
+            message: 'Выберите права сотрудника'
+          })
+          this.errorsFields.role = 'invalid'
+        } else {
+          this.errorsFields.role = 'valid'
+        }
+      },
+      validationObject() {
+        if (this.object === '') {
+          this.errors.push({
+            type: 'invalid',
+            message: 'Выберите права сотрудника'
+          })
+          this.errorsFields.object = 'invalid'
+        } else {
+          this.errorsFields.object = 'valid'
+        }
+      },
+      validationPosition() {
+        if (this.position === '') {
+          this.errors.push({
+            type: 'invalid',
+            message: 'Введите должность сотрудника'
+          })
+          this.errorsFields.position = 'invalid'
+        } else {
+          this.errorsFields.position = 'valid'
+        }
+      },
       registration() {
-        this.$store.dispatch(authActionTypes.registration, {
-          email: this.email,
-          password: this.password,
-          firstname: this.firstName,
-          lastname: this.lastName,
-          id_role: this.role,
-          id_object: this.object
-        })
+        this.validationForm()
+        if (this.errors.length === 0) {
+          this.$store.dispatch(authActionTypes.registration, {
+            email: this.email,
+            password: this.password,
+            firstname: this.firstName,
+            lastname: this.lastName,
+            id_role: this.role,
+            id_object: this.object,
+            position: this.position
+          })
+        }
       }
     }
   }

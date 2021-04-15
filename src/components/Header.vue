@@ -17,17 +17,21 @@
               class="rounded-circle"
               :src="currentUser.image"
               style="width:40px"
-            /><a
-              class="d-flex"
-              id="openProfileMenu"
-              href=""
-              @click.prevent="openProfileMenu"
-            >
-              <p class="m-0 pl-3">
-                {{ currentUser.firstname }} {{ currentUser.lastname }}
-              </p>
-              <img src="@/assets/img/icon-chevron-down.svg"
-            /></a>
+            />
+            <div>
+              <a
+                class="d-flex"
+                id="openProfileMenu"
+                href=""
+                @click.prevent="openProfileMenu"
+              >
+                <p class="m-0 pl-3">
+                  {{ currentUser.firstname }} {{ currentUser.lastname }}
+                </p>
+                <img src="@/assets/img/icon-chevron-down.svg"
+              /></a>
+              <small class="text-muted pl-3">{{ currentUser.position }}</small>
+            </div>
 
             <div
               class="menu card position-absolute p-1"
