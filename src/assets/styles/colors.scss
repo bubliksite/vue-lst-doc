@@ -8,6 +8,7 @@ $green: #46cd93;
 $green-bg: rgba(70, 205, 147, 0.2);
 $yellow: #fdba45;
 $blue: #4bbbce;
+$pink: #e66793;
 $gray: rgba(255, 255, 255, 0.2);
 $primary: #5985ee;
 $gray-text: rgba(255, 255, 255, 0.6);
@@ -22,6 +23,9 @@ $gray-header-text: #dddddd;
   }
   &blue {
     background-color: $blue !important;
+  }
+  &pink {
+    background-color: $pink !important;
   }
   &danger {
     background-color: $red !important;
