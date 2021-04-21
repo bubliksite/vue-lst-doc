@@ -44,6 +44,10 @@ const getRoles = () => {
   return axios.get('https://api.bblk.ga/lst/user/get-roles')
 }
 
+const getAllUsers = () => {
+  return axios.get('https://api.bblk.ga/lst/users/get-all')
+}
+
 export default {
   registration,
   login,
@@ -52,6 +56,7 @@ export default {
   sendNewPassword,
   getUpdatedEmail,
   getRoles,
+  getAllUsers,
   updatePassword,
   isLoggedIn
 }

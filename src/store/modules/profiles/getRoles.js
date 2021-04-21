@@ -39,7 +39,7 @@ const actions = {
           resolve(response.data)
         })
         .catch(result => {
-          context.commit(mutationTypes.loginFailure, result.response.data)
+          context.commit(mutationTypes.getRolesFailure, result.response.data)
         })
     })
   }

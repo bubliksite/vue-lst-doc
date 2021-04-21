@@ -28,15 +28,25 @@
   </div>
 </template>
 <script>
+  import {mapState} from 'vuex'
   import Header from '../components/Header'
   import Loader from '../components/Loader'
+  import {actionTypes} from '../store/modules/profiles/getAllUsers'
+
   export default {
     name: 'Settings',
     components: {Loader, Header},
     data: () => ({
       loader: true
     }),
+    computed: {
+      ...mapState({
+        users: state => state.getAllUsers.users,
+        errors: state => state.getAllUsers.users
+      })
+    },
     mounted() {
+      this.$store.dispatch(actionTypes.getAllUsers)
       this.loader = false
     }
   }
