@@ -18,7 +18,29 @@
           <div class="col-12">
             <div class="card px-3 py-3">
               <div class="row">
-                <div class="col-lg-4 col-md-6 col-12"></div>
+                <div
+                  class="col-lg-4 col-md-6 col-12 d-flex align-items-center"
+                  v-for="user in users"
+                  :key="user.id"
+                >
+                  <img
+                    class="rounded-circle avatar-border"
+                    width="60px"
+                    :src="user.image"
+                    alt=""
+                  />
+                  <div class="user-info ml-3">
+                    <h3 class="text-uppercase font-weight-bold mb-0">
+                      {{ user.lastname }} {{ user.firstname }}
+                    </h3>
+                    <p class="light-gray-text mb-1">{{ user.position }}</p>
+                    <a
+                      href="#"
+                      class="light-gray-text text-decoration-underline"
+                      ><small><u>Изменить профиль</u></small></a
+                    >
+                  </div>
+                </div>
               </div>
             </div>
           </div>
