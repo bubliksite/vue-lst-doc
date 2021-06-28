@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import Header from '../components/Header'
+  import Header from '../components/Header/Header'
   import Loader from '../components/Loader'
   import Tasks from '../components/Home/Tasks'
   import Agents from '../components/Home/Agents'

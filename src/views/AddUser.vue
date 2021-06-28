@@ -4,9 +4,7 @@
     <Header />
     <section class="container my-4">
       <div class="title d-flex justify-content-between align-items-center px-2">
-        <h1 class="py-3 my-2">
-          Добавить нового пользователя
-        </h1>
+        <h1 class="py-3 my-2">Добавить нового пользователя</h1>
       </div>
       <div class="row mb-4">
         <div class="col-12">
@@ -16,7 +14,13 @@
                 <form @submit.prevent="" class="row px-3">
                   <div class="col-12 col-md-6">
                     <div
-                      class="form-group d-flex align-items-center font-weight-bold mb-5"
+                      class="
+                        form-group
+                        d-flex
+                        align-items-center
+                        font-weight-bold
+                        mb-5
+                      "
                     >
                       <label class="mb-0 mr-3 text-uppercase" for="fullName"
                         >Имя</label
@@ -31,11 +35,17 @@
                         placeholder="Имя Фамилия"
                       />
                       <div class="icon-clear-input" @click="fullName = ''">
-                        <img src="@/assets/img/icon-clear-input.svg" alt="" />
+                        <img src="../assets/img/icon-clear-input.svg" alt="" />
                       </div>
                     </div>
                     <div
-                      class="form-group d-flex align-items-center font-weight-bold mb-5"
+                      class="
+                        form-group
+                        d-flex
+                        align-items-center
+                        font-weight-bold
+                        mb-5
+                      "
                     >
                       <label class="mb-0 mr-3 text-uppercase" for="email"
                         >Email</label
@@ -50,11 +60,17 @@
                         placeholder="Email"
                       />
                       <div class="icon-clear-input" @click="email = ''">
-                        <img src="@/assets/img/icon-clear-input.svg" alt="" />
+                        <img src="../assets/img/icon-clear-input.svg" alt="" />
                       </div>
                     </div>
                     <div
-                      class="form-group d-flex align-items-center font-weight-bold mb-5"
+                      class="
+                        form-group
+                        d-flex
+                        align-items-center
+                        font-weight-bold
+                        mb-5
+                      "
                     >
                       <label class="mb-0 mr-3 text-uppercase" for="password"
                         >Пароль</label
@@ -69,13 +85,19 @@
                         placeholder="Пароль"
                       />
                       <div class="icon-clear-input" @click="password = ''">
-                        <img src="@/assets/img/icon-clear-input.svg" alt="" />
+                        <img src="../assets/img/icon-clear-input.svg" alt="" />
                       </div>
                     </div>
                   </div>
                   <div class="col-12 col-md-6">
                     <div
-                      class="form-group d-flex align-items-center font-weight-bold mb-5"
+                      class="
+                        form-group
+                        d-flex
+                        align-items-center
+                        font-weight-bold
+                        mb-5
+                      "
                     >
                       <label class="mb-0 mr-3 text-uppercase" for="role">
                         Права
@@ -98,7 +120,13 @@
                       </select>
                     </div>
                     <div
-                      class="form-group d-flex align-items-center font-weight-bold mb-5"
+                      class="
+                        form-group
+                        d-flex
+                        align-items-center
+                        font-weight-bold
+                        mb-5
+                      "
                     >
                       <label class="mb-0 mr-3 text-uppercase" for="object">
                         Объект
@@ -121,7 +149,13 @@
                       </select>
                     </div>
                     <div
-                      class="form-group d-flex align-items-center font-weight-bold mb-5"
+                      class="
+                        form-group
+                        d-flex
+                        align-items-center
+                        font-weight-bold
+                        mb-5
+                      "
                     >
                       <label class="mb-0 mr-3 text-uppercase" for="position"
                         >Должность</label
@@ -136,38 +170,59 @@
                         placeholder="Должность"
                       />
                       <div class="icon-clear-input" @click="position = ''">
-                        <img src="@/assets/img/icon-clear-input.svg" alt="" />
+                        <img src="../assets/img/icon-clear-input.svg" alt="" />
                       </div>
                     </div>
                   </div>
                   <div class="col-12 col-md-6">
                     <div
-                      class="form-group d-flex align-items-center justify-content-between font-weight-bold mb-5"
+                      class="
+                        form-group
+                        d-flex
+                        align-items-center
+                        justify-content-between
+                        font-weight-bold
+                        mb-5
+                      "
                     >
                       <button
-                        class="btn btn-success mr-3 w-50 d-flex align-items-center justify-content-center position-relative"
+                        class="
+                          btn btn-success
+                          mr-3
+                          w-50
+                          d-flex
+                          align-items-center
+                          justify-content-center
+                          position-relative
+                        "
                         @click.prevent="registration"
                       >
                         <img
                           class="mr-2"
-                          src="@/assets/img/icon-done.svg"
+                          src="../assets/img/icon-done.svg"
                           alt=""
                         />
                         Создать
                         <img
                           v-if="isSubmitting"
                           class="mr-2 small-loader position-absolute"
-                          src="@/assets/img/spinner.svg"
-                          style="right:0"
+                          src="../assets/img/spinner.svg"
+                          style="right: 0"
                         />
                       </button>
                       <button
-                        class="btn btn-danger w-50 d-flex align-items-center justify-content-center"
+                        class="
+                          btn btn-danger
+                          w-50
+                          d-flex
+                          align-items-center
+                          justify-content-center
+                        "
                         @click.prevent="clearForm"
                       >
                         <img
                           class="mr-2"
-                          src="@/assets/img/icon-cancell.svg"
+                          src="../assets/img/icon-cancell.svg"
                           alt=""
                         />
                         Назад
@@ -197,9 +252,9 @@
 
 <script>
   import {mapState} from 'vuex'
-  import Header from '@/components/Header'
-  import Loader from '@/components/Loader'
-  import Alert from '@/components/Alert'
+  import Header from '../components/Header/Header'
+  import Loader from '../components/Loader'
+  import Alert from '../components/Alert'
   import {actionTypes as rolesActionTypes} from '../store/modules/profiles/getRoles'
   import {actionTypes as objectsActionTypes} from '../store/modules/objects/getObjects'
   import {actionTypes as authActionTypes} from '../store/modules/auth'
@@ -220,10 +275,10 @@
     }),
     computed: {
       ...mapState({
-        roles: state => state.getRoles.roles,
-        objects: state => state.getObjects.objects,
-        validationErrors: state => state.auth.validationErrors,
-        isSubmitting: state => state.auth.isSubmitting
+        roles: (state) => state.getRoles.roles,
+        objects: (state) => state.getObjects.objects,
+        validationErrors: (state) => state.auth.validationErrors,
+        isSubmitting: (state) => state.auth.isSubmitting
       }),
       firstName() {
         return this.fullName

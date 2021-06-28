@@ -1,23 +1,21 @@
-import axios from 'axios'
+import axios from './axios'
 
 const registration = credentials => {
-  return axios.post('https://api.bblk.ga/lst/register', {user: credentials})
+  return axios.post('/auth/registration', {user: credentials})
 }
 
 const login = credentials => {
-  return axios.post('https://api.bblk.ga/lst/login', {user: credentials})
+  return axios.post('/auth/login', {user: credentials})
 }
 
 const requestPassword = credentials => {
-  return axios.post('https://api.bblk.ga/lst/user/request-password', {
+  return axios.post('/auth/requestPassword', {
     user: credentials
   })
 }
 
-const updatePassword = credentials => {
-  return axios.post(`https://api.bblk.ga/lst/user/update-password`, {
-    user: credentials
-  })
+const updatePassword = token => {
+  return axios.get(`/auth/updatePassword/${token}`)
 }
 
 const getUpdatedEmail = token => {
@@ -26,8 +24,8 @@ const getUpdatedEmail = token => {
     .then(response => response.data)
 }
 
-const isLoggedIn = token => {
-  return axios.post('https://api.bblk.ga/lst/user', {token})
+const isLoggedIn = (token) => {
+  return axios.get(`/auth/login/${token}`)
 }
 
 const sendNewPassword = credentials => {
@@ -37,7 +35,7 @@ const sendNewPassword = credentials => {
 }
 
 const logout = token => {
-  return axios.post('https://api.bblk.ga/lst/logout', {token})
+  return axios.post('/auth/logout', {token})
 }
 
 const getRoles = () => {

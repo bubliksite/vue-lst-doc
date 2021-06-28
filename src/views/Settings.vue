@@ -51,7 +51,7 @@
 </template>
 <script>
   import {mapState} from 'vuex'
-  import Header from '../components/Header'
+  import Header from '../components/Header/Header'
   import Loader from '../components/Loader'
   import {actionTypes} from '../store/modules/profiles/getAllUsers'
 

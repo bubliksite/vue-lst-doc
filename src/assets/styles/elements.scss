@@ -97,6 +97,10 @@ h3 {
     }
     &.active {
       color: $primary;
+      svg {
+        fill: $primary;
+        fill-opacity: 1;
+      }
     }
   }
 }
