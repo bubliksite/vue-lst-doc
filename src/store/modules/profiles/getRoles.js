@@ -1,4 +1,4 @@
-import authApi from '@/api/auth'
+import profilesApi from '@/api/profiles'
 
 const state = {
   roles: null,
@@ -30,15 +30,15 @@ const mutations = {
 
 const actions = {
   [actionTypes.getRoles](context) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       context.commit(mutationTypes.getRolesStart)
-      authApi
+      profilesApi
         .getRoles()
-        .then(response => {
+        .then((response) => {
           context.commit(mutationTypes.getRolesSuccess, response.data)
           resolve(response.data)
         })
-        .catch(result => {
+        .catch((result) => {
           context.commit(mutationTypes.getRolesFailure, result.response.data)
         })
     })

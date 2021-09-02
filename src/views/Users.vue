@@ -7,11 +7,10 @@
         <div
           class="title d-flex justify-content-between align-items-center px-2"
         >
-          <h1 class="py-3 my-2">
-            Управление пользователями
-          </h1>
+          <h1 class="py-3 my-2">Управление пользователями</h1>
           <router-link :to="{name: 'AddUser'}" class="btn btn-primary"
-            >+ Добавить нового</router-link
+            ><b-icon icon="person-plus" class="mr-2" font-scale="1.5"></b-icon>
+            Добавить нового</router-link
           >
         </div>
         <div class="row mb-4">
@@ -34,10 +33,10 @@
                       {{ user.lastname }} {{ user.firstname }}
                     </h3>
                     <p class="light-gray-text mb-1">{{ user.position }}</p>
-                    <a
-                      href="#"
+                    <router-link
+                      :to="{name: 'Profile', params: {id: user.id}}"
                       class="light-gray-text text-decoration-underline"
-                      ><small><u>Изменить профиль</u></small></a
+                      ><small><u>Смотреть профиль</u></small></router-link
                     >
                   </div>
                 </div>
@@ -56,15 +55,15 @@
   import {actionTypes} from '../store/modules/profiles/getAllUsers'
 
   export default {
-    name: 'Settings',
+    name: 'Users',
     components: {Loader, Header},
     data: () => ({
       loader: true
     }),
     computed: {
       ...mapState({
-        users: state => state.getAllUsers.users,
-        errors: state => state.getAllUsers.users
+        users: (state) => state.getAllUsers.users,
+        errors: (state) => state.getAllUsers.users
       })
     },
     mounted() {

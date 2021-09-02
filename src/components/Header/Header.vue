@@ -54,9 +54,9 @@
                   </li>
                   <li class="py-2 px-2" v-if="currentUser.id_role === 1">
                     <NavItem
-                      logo="gear"
-                      name="Настройки"
-                      link="Settings"
+                      logo="people"
+                      name="Пользователи"
+                      link="Users"
                       size="2"
                     />
                   </li>

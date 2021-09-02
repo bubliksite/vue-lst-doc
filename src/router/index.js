@@ -5,9 +5,10 @@ import Login from '../views/Login'
 import RequestPassword from '../views/RequestPassword'
 import UpdatePassword from '../views/UpdatePassword'
 import Tasks from '../views/Tasks'
-import Settings from '../views/Settings'
+import Settings from '../views/Users'
 import AddUser from '../views/AddUser'
 import Error404 from '../views/Error404'
+import Profile from '../views/Profile'
 
 Vue.use(VueRouter)
 
@@ -33,14 +34,19 @@ const routes = [
     component: UpdatePassword
   },
   {
-    path: '/settings',
-    name: 'Settings',
+    path: '/users',
+    name: 'Users',
     component: Settings
   },
   {
-    path: '/settings/adduser',
+    path: '/users/adduser',
     name: 'AddUser',
     component: AddUser
+  },
+  {
+    path: '/users/:id',
+    name: 'Profile',
+    component: Profile
   },
   {
     path: '/tasks',

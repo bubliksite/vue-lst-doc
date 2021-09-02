@@ -1,7 +1,7 @@
 import axios from './axios'
 
 const getObjects = () => {
-  return axios.get('https://api.bblk.ga/lst/objects/groups')
+  return axios.get('/objects/groups/all')
 }
 
 export default {getObjects}

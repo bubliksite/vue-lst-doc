@@ -1,4 +1,4 @@
-import authApi from '@/api/auth'
+import profilesApi from '@/api/profiles'
 
 const state = {
   users: null,
@@ -30,15 +30,15 @@ const mutations = {
 
 const actions = {
   [actionTypes.getAllUsers](context) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       context.commit(mutationTypes.getAllUsersStart)
-      authApi
+      profilesApi
         .getAllUsers()
-        .then(response => {
+        .then((response) => {
           context.commit(mutationTypes.getAllUsersSuccess, response.data)
           resolve(response.data)
         })
-        .catch(result => {
+        .catch((result) => {
           context.commit(mutationTypes.getAllUsersFailure, result.response.data)
         })
     })

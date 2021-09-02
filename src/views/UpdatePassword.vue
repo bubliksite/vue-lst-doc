@@ -5,48 +5,48 @@
       <div v-else>
         <div class="d-flex justify-content-center align-items-center h-100vh">
           <div
-            v-if="validationErrors"
+            v-if="errors"
             class="card p-5"
-            style="width:390px"
-            :class="validationErrors.type"
+            style="width: 390px"
+            :class="errors.type"
           >
-            {{ validationErrors.message }}
+            {{ errors.message }}
             <br />
             <p class="mb-0 mt-3">
               <router-link
                 class="small"
                 :to="{name: 'RequestPassword'}"
-                v-if="validationErrors.type === 'invalid'"
+                v-if="errors.type === 'invalid'"
               >
                 Запросить повторно
               </router-link>
               <router-link
                 class="small"
                 :to="{name: 'Login'}"
-                v-if="validationErrors.type === 'valid'"
+                v-if="errors.type === 'valid'"
               >
                 На страницу входа
               </router-link>
             </p>
           </div>
-          <div class="card p-5" style="width:390px" v-else>
+          <div class="card p-5" style="width: 390px" v-else>
             <div class="d-flex justify-content-between align-items-center mb-5">
               <img src="@/assets/img/Logo.svg" />
               <h2
                 class="gray-color-text text-capitalize"
-                style="margin-bottom: 0;line-height:0.7"
+                style="margin-bottom: 0; line-height: 0.7"
               >
                 Обновить пароль
               </h2>
             </div>
-            <form @submit.prevent="updatePassword">
+            <form @submit.prevent="updatePassword()">
               <div class="form-group">
                 <input
                   class="form-control"
                   type="text"
                   id="email_placeholder"
                   name="email_placeholder"
-                  :value="currentUser.email"
+                  :value="email"
                   disabled
                 />
               </div>
@@ -73,8 +73,15 @@
                 />
               </div>
               <Alert v-if="message.type" :validationErrors="message" />
+
               <button
-                class="btn btn-primary btn-block d-flex justify-content-center align-items-center position-relative"
+                class="
+                  btn btn-primary btn-block
+                  d-flex
+                  justify-content-center
+                  align-items-center
+                  position-relative
+                "
                 type="submit"
                 :disabled="isSubmitting"
               >
@@ -82,7 +89,7 @@
                   v-if="isSubmitting"
                   class="mr-2 small-loader position-absolute"
                   src="@/assets/img/spinner.svg"
-                  style="right:0"
+                  style="right: 0"
                 />
               </button>
             </form>
@@ -100,7 +107,8 @@
 
 <script>
   import {mapState} from 'vuex'
-  import {actionTypes} from '@/store/modules/auth'
+  import {actionTypes as getUpdatedEmailActionTypes} from '@/store/modules/auth/getUpdatedEmail'
+  import {actionTypes as updatePasswordActionTypes} from '@/store/modules/auth/updatePassword'
   import Loader from '@/components/Loader'
   import Alert from '../components/Alert'
 
@@ -115,9 +123,9 @@
     }),
     computed: {
       ...mapState({
-        isSubmitting: state => state.auth.isSubmitting,
-        validationErrors: state => state.auth.validationErrors,
-        currentUser: state => state.auth.currentUser
+        isSubmitting: (state) => state.updatePassword.isSubmitting,
+        errors: (state) => state.getUpdatedEmail.errors,
+        email: (state) => state.getUpdatedEmail.email
       })
     },
     mounted() {
@@ -138,22 +146,33 @@
             message: 'Длина пароля должна быть не менее 6 символов',
             class: 'is-invalid'
           }
-        } else if (this.password != this.passwordCheck) {
+        } else if (this.password !== this.passwordCheck) {
           this.message = {
             type: 'invalid',
             message: 'Пароли не совпадают',
             class: 'is-invalid'
           }
         } else {
-          this.$store.dispatch(actionTypes.updatePassword, {
-            token: this.$route.params.token,
-            email: this.currentUser.email,
-            password: this.password
-          })
+          this.$store
+            .dispatch(updatePasswordActionTypes.updatePassword, {
+              token: this.$route.params.token,
+              email: this.email,
+              password: this.password
+            })
+            .then((response) => {
+              this.message = {
+                type: response.type,
+                message: response.message,
+                class: 'is-valid'
+              }
+              setTimeout(() => {
+                this.$router.push({name: 'Login'})
+              }, 1000)
+            })
         }
       },
       getUpdatedEmail() {
-        this.$store.dispatch(actionTypes.getUpdatedEmail, {
+        this.$store.dispatch(getUpdatedEmailActionTypes.getUpdatedEmail, {
           token: this.$route.params.token
         })
       }
